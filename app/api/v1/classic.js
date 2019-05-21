@@ -13,6 +13,7 @@ router.post('/v1/:id/classic/latest', (ctx, next) => {
   const headers = ctx.request.headers;
   const body = ctx.request.body;
 
+  abc // simulate unknown exception
   if(true) {
     // dynamic 
     // const error = new Error('why error');

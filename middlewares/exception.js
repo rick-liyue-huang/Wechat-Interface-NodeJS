@@ -34,6 +34,8 @@ const catchError = async (ctx, next) => {
     //   }
     //   ctx.status = error.status;
     // }
+    
+    // deal with known exception
     if(error instanceof ParameterException) {
       ctx.body = {
         msg: error.msg,
@@ -41,6 +43,16 @@ const catchError = async (ctx, next) => {
         request: `${ctx.method} ${ctx.path}`
       }
       ctx.status = error.code;
+    }
+
+    // deal with unknown exception
+    else {
+      ctx.body = {
+        msg: 'we have an unknown exception',
+        error_code: 999,
+        request: `${ctx.method} ${ctx.path}`
+      }
+      ctx.status = 500;
     }
 
   }
