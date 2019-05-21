@@ -7,8 +7,8 @@ class InitManager {
   static initCore(app) {
     // entry method
     InitManager.app = app;
-    InitManager.initLoadRouters(app)
-
+    InitManager.initLoadRouters(app);
+    InitManager.loadHttpException();
   }
   // this is static method
   static initLoadRouters() {
@@ -22,6 +22,12 @@ class InitManager {
     }
     
     requireDirectory(module, apiDirectory, {visit: whenLoadModules});
+  }
+
+  // define a global method to load exceptions, so it does not need to load exception in any model file.
+  static loadHttpException() {
+    const errors = require('./http-exception');
+    global.errs = errors;
   }
 }
 
