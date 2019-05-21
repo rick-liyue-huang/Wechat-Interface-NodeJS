@@ -1,26 +1,28 @@
 
+// use class to organize 
 const Router = require('koa-router');
 const requireDirectory = require('require-directory');
 
 class InitManager {
   static initCore(app) {
-    // entry mthod
+    // entry method
     InitManager.app = app;
-    InitManager.initLoadRouter()
+    InitManager.initLoadRouters(app)
+
   }
-  static initLoadRouter() {
+  // this is static method
+  static initLoadRouters() {
 
-    // 1.  config path for developers
     const apiDirectory = `${process.cwd()}/app/api`;
-    requireDirectory(module, apiDirectory, {visit: whenLoadModule});
 
-    function whenLoadModule(obj) {
-      if(obj instanceof Router) {
-        InitManager.app.use(obj.routes()); // check lin CMS
+    function whenLoadModules(obj) {
+      if (obj instanceof Router) {
+        InitManager.app.use(obj.routes());
       }
     }
+    
+    requireDirectory(module, apiDirectory, {visit: whenLoadModules});
   }
 }
 
 module.exports = InitManager;
-
