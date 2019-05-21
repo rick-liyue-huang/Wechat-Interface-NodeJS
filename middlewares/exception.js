@@ -36,6 +36,15 @@ const catchError = async (ctx, next) => {
     // }
     
     // deal with known exception
+
+    // development environment -- need see info from terminal
+
+    // production environment -- no see info from terminal
+
+    if(global.config.environment === 'dev') {
+      throw error;
+    }
+    
     if(error instanceof ParameterException) {
       ctx.body = {
         msg: error.msg,
