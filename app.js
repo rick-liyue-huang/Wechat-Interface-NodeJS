@@ -47,28 +47,35 @@
 
 
 const Koa = require('koa');
-const Router = require('koa-router');
+const InitManager = require('./core/init');
+
 const app = new Koa();
-const router = new Router();
+// const router = new Router();
 
-router.get('/classic/latest', (ctx, next) => {
-  ctx.body = {key: 'classic'};
-});
+// export all the modules from the required directory
 
-
-
-app.use(router.routes());
+// const classic = require('./api/v1/classic');
+// const book = require('./api/v1/book');
 
 // app.use(async (ctx, next) => {
-//   console.log(ctx.path);
-//   console.log(ctx.method);
-//   if(ctx.path == '/classic/latest' && ctx.method === 'GET') {
-//     ctx.body = {key: 'classic'};
+//   if(ctx.method === 'GET' && ctx.path === '/classic/latest') {
+//     ctx.body = {key: 'latest'}
 //   }
-//   await next();
 // });
 
+// router.get('/classic/latest', (ctx, next) => {
+//   ctx.body = {key: 'classic'}
+// });
+
+// app.use(router.routes());
+// app.use(classic.routes());
+// app.use(book.routes());
+
+InitManager.initCore(app);
+
 app.listen(3000);
+
+
 
 
 
