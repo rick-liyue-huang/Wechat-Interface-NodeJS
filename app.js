@@ -47,16 +47,26 @@
 
 
 const Koa = require('koa');
+const Router = require('koa-router');
 const app = new Koa();
+const router = new Router();
 
-app.use(async (ctx, next) => {
-  console.log(ctx.path);
-  console.log(ctx.method);
-  if(ctx.path == '/classic/latest' && ctx.method === 'GET') {
-    ctx.body = {key: 'classic'};
-  }
-  await next();
+router.get('/classic/latest', (ctx, next) => {
+  ctx.body = {key: 'classic'};
 });
+
+
+
+app.use(router.routes());
+
+// app.use(async (ctx, next) => {
+//   console.log(ctx.path);
+//   console.log(ctx.method);
+//   if(ctx.path == '/classic/latest' && ctx.method === 'GET') {
+//     ctx.body = {key: 'classic'};
+//   }
+//   await next();
+// });
 
 app.listen(3000);
 
