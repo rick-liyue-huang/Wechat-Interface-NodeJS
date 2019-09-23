@@ -8,6 +8,7 @@ class InitManager {
     // entry method
     InitManager.app = app;
     InitManager.initLoaderRouters();
+    // InitManager.loadHttpException();
   }
   static initLoaderRouters(app) {
 
@@ -23,6 +24,12 @@ class InitManager {
       }
     }
 
+  }
+
+  // just one try
+  static loadHttpException() {
+    const errors = require('./http-exception');
+    global.errs = errors;
   }
 }
 

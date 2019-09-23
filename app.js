@@ -47,9 +47,12 @@
 
 
 const Koa = require('koa');
+const parser = require('koa-bodyparser');
 const InitManager = require('./core/init');
+const catchError = require('./middlewares/exception');
 
 const app = new Koa();
+app.use(parser());
 // const router = new Router();
 
 // export all the modules from the required directory
@@ -70,6 +73,11 @@ const app = new Koa();
 // app.use(router.routes());
 // app.use(classic.routes());
 // app.use(book.routes());
+
+// throw new Error('API Exception');
+app.use(catchError);
+// listen error
+// output some message
 
 InitManager.initCore(app);
 
